@@ -54,7 +54,7 @@ def get_var():
     print(CheckVar.get())
 
 window = Tk()
-window.iconbitmap("Nya-WSL.ico")
+# window.iconbitmap("Nya-WSL.ico")
 window.title(f"简易随机数生成器v{version} by.Nya-WSL")
 window.geometry('500x410')
 
