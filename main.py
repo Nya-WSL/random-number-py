@@ -1,17 +1,8 @@
-import os
-import sys
 import random
 from tkinter import *
 import tkinter.messagebox as tkmb
 
-version = "2.0.0"
-
-# global lb
-# global Number
-# global RangeMax
-# global RangeMin
-# global window
-# global CheckVar
+version = "2.0.1"
 
 def clicked():
     global listbox
@@ -39,7 +30,7 @@ def clicked():
     listbox = Listbox(window, selectmode=EXTENDED, yscrollcommand=sc.set, height=5, width=10, borderwidth=0)
     for i in NumberList:
         listbox.insert(END, i)
-    listbox.pack(side=LEFT, fill=BOTH, )
+    listbox.pack(side=LEFT, fill=BOTH)
     sc.config(command=listbox.yview)
 
 def reset():
