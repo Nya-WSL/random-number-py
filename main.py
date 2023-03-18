@@ -1,17 +1,9 @@
 import os
-import sys
 import random
 from tkinter import *
 import tkinter.messagebox as tkmb
 
-version = "2.0.0"
-
-# global lb
-# global Number
-# global RangeMax
-# global RangeMin
-# global window
-# global CheckVar
+version = "2.0.1"
 
 def clicked():
     global listbox
@@ -39,7 +31,7 @@ def clicked():
     listbox = Listbox(window, selectmode=EXTENDED, yscrollcommand=sc.set, height=5, width=10, borderwidth=0)
     for i in NumberList:
         listbox.insert(END, i)
-    listbox.pack(side=LEFT, fill=BOTH, )
+    listbox.pack(side=LEFT, fill=BOTH)
     sc.config(command=listbox.yview)
 
 def reset():
@@ -54,7 +46,8 @@ def get_var():
     print(CheckVar.get())
 
 window = Tk()
-window.iconbitmap("Nya-WSL.ico")
+if os.path.exists("Nya-WSL.ico"):
+    window.iconbitmap("Nya-WSL.ico")
 window.title(f"简易随机数生成器v{version} by.Nya-WSL")
 window.geometry('500x410')
 
