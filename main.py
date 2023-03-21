@@ -1,10 +1,11 @@
 import os
+import csv
 import random
 from tkinter import *
 import tkinter.messagebox as tkmb
 from tkinter.filedialog import askopenfilename, askopenfilenames, askdirectory, asksaveasfilename
 
-version = "2.0.1"
+version = "2.1.1"
 
 def clicked():
     global listbox
@@ -35,32 +36,46 @@ def clicked():
     listbox.pack(side=LEFT, fill=BOTH)
     sc.config(command=listbox.yview)
 
+def randomStrClicked():
+    with open(File, encoding="utf8") as f:
+        reader = csv.reader(f)
+        Data = [row[0] for row in reader]
+    with open(File, encoding="utf8") as f:
+        reader = csv.reader(f)
+        Weight = [row[1] for row in reader]
+    Dict = dict(zip(Data, Weight))
+    print(Dict)
+    ValueList = []
+    for key, value in Dict.items():
+        ValueList += int(value)*[key]
+    Result = random.choice(ValueList)
+    print(Result)
+
 def randomStr():
+    global LblCsvChoice
+    global btnStartRandom
     window.destroy()
     WindowRandomStr = Tk()
     if os.path.exists("Nya-WSL.ico"):
         WindowRandomStr.iconbitmap("Nya-WSL.ico")
-    WindowRandomStr.title(f"简易随机字符串生成器v{version} by.Nya-WSL")
+    WindowRandomStr.title(f"简易随机文本生成器v{version} by.Nya-WSL")
     WindowRandomStr.geometry('500x410')
-    
-    LblNumberCHoice = Label(WindowRandomStr,text = "请输入生成数量")
-    LblCsvChoice = Label(WindowRandomStr,text = "请选择需要抽取的csv")
-    NumberChoice = Entry(WindowRandomStr,width=10)
-    
+
+    LblCsvChoice = Label(WindowRandomStr)
     btnCsvChoice = Button(WindowRandomStr,fg="black",bg="white",text="选择文件",command=opencsv)
-    
-    
-    LblNumberCHoice.pack()
-    NumberChoice.pack()
+    btnStartRandom = Button(WindowRandomStr,fg="black",bg="white",text="开始",command=randomStrClicked)
     LblCsvChoice.pack()
-    btnCsvChoice.pack()
-    
-    
-    
+    btnCsvChoice.pack(pady=5)
+
     window.mainloop()
 
 def opencsv():
-    askopenfilename(title="请选择需要抽取的文件", initialdir=os.getcwd(), filetypes=[("CSV file",'*.csv')])
+    global File
+    File = askopenfilename(title="请选择抽取的文件", initialdir=os.getcwd(), filetypes=[("CSV file",'*.csv')])
+    Path, FileName = os.path.split(File)
+    LblCsvChoice.pack()
+    LblCsvChoice.configure(text = "已选择：" + format(FileName))
+    btnStartRandom.pack()
 
 def reset():
     listbox.destroy()
@@ -107,7 +122,7 @@ def mainWindow():
     btnStart.pack()
     btnRestart = Button(window,fg="black",bg="white",text="重置结果",command=reset)
     btnRestart.pack(pady=5)
-    btnRandomStr = Button(window,fg="black",bg="white",text="随机字符串",command=randomStr)
+    btnRandomStr = Button(window,fg="black",bg="white",text="随机文本",command=randomStr)
     btnRandomStr.pack()
 
     window.mainloop()
