@@ -51,24 +51,6 @@ def randomStrClicked():
     Result = random.choice(ValueList)
     print(Result)
 
-def randomStr():
-    global LblCsvChoice
-    global btnStartRandom
-    window.destroy()
-    WindowRandomStr = Tk()
-    if os.path.exists("Nya-WSL.ico"):
-        WindowRandomStr.iconbitmap("Nya-WSL.ico")
-    WindowRandomStr.title(f"简易随机文本生成器v{version} by.Nya-WSL")
-    WindowRandomStr.geometry('500x410')
-
-    LblCsvChoice = Label(WindowRandomStr)
-    btnCsvChoice = Button(WindowRandomStr,fg="black",bg="white",text="选择文件",command=opencsv)
-    btnStartRandom = Button(WindowRandomStr,fg="black",bg="white",text="开始",command=randomStrClicked)
-    LblCsvChoice.pack()
-    btnCsvChoice.pack(pady=5)
-
-    window.mainloop()
-
 def opencsv():
     global File
     File = askopenfilename(title="请选择抽取的文件", initialdir=os.getcwd(), filetypes=[("CSV file",'*.csv')])
@@ -78,9 +60,15 @@ def opencsv():
     btnStartRandom.pack()
 
 def reset():
-    listbox.destroy()
-    sc.destroy()
-    lb.destroy()
+    # listbox.destroy()
+    # sc.destroy()
+    # lb.destroy()
+    window.destroy()
+    mainWindow()
+
+def strReset():
+    WindowRandomStr.destroy()
+    randomStr()
 
 def CompareError():
     tkmb.showwarning(title="警告", message="输入的生成数量大于最大值 " + str(Compare) + " ！")
@@ -126,5 +114,26 @@ def mainWindow():
     btnRandomStr.pack()
 
     window.mainloop()
+
+def randomStr():
+    global LblCsvChoice
+    global btnStartRandom
+    global WindowRandomStr
+    window.destroy()
+    WindowRandomStr = Tk()
+    if os.path.exists("Nya-WSL.ico"):
+        WindowRandomStr.iconbitmap("Nya-WSL.ico")
+    WindowRandomStr.title(f"简易随机文本生成器v{version} by.Nya-WSL")
+    WindowRandomStr.geometry('500x410')
+
+    LblCsvChoice = Label(WindowRandomStr)
+    btnCsvChoice = Button(WindowRandomStr,fg="black",bg="white",text="选择文件",command=opencsv)
+    btnStartRandom = Button(WindowRandomStr,fg="black",bg="white",text="开始",command=randomStrClicked)
+    btnStrReset = Button(WindowRandomStr,fg="black",bg="white",text="重置",command=strReset)
+    LblCsvChoice.pack()
+    btnCsvChoice.pack(pady=5)
+    btnStrReset.pack()
+
+    WindowRandomStr.mainloop()
 
 mainWindow()
